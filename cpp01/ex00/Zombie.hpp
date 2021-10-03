@@ -5,26 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/03 15:57:37 by jfabi             #+#    #+#             */
-/*   Updated: 2021/10/03 15:57:39 by jfabi            ###   ########.fr       */
+/*   Created: 2021/10/03 15:52:29 by jfabi             #+#    #+#             */
+/*   Updated: 2021/10/03 15:57:18 by jfabi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef ZOMBIE_HPP
+# define ZOMBIE_HPP
 
-Zombie::Zombie(std::string name)
-{
-	this->name = name;
-}
+#include <iostream>
 
-void	Zombie::announce(void)
-{
-	std::cout << "<" << name << ">" << "BraiiiiiiinnnzzzZ...";
-	std::cout << std::endl;
-}
+class Zombie {
+	public:
+		Zombie(std::string name);
+		~Zombie(void);
+		void	announce(void);
+	private:
+		std::string	name;
+};
 
-Zombie::~Zombie(void)
-{
-	std::cout << "<" << name << ">" << "is alive";
-	std::cout << std::endl; 
-}
+#endif

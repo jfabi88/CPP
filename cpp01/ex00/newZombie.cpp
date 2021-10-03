@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   newZombie.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/03 15:57:37 by jfabi             #+#    #+#             */
-/*   Updated: 2021/10/03 15:57:39 by jfabi            ###   ########.fr       */
+/*   Created: 2021/10/03 16:02:19 by jfabi             #+#    #+#             */
+/*   Updated: 2021/10/03 16:02:50 by jfabi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-Zombie::Zombie(std::string name)
+Zombie *newZombie(std::string name)
 {
-	this->name = name;
-}
-
-void	Zombie::announce(void)
-{
-	std::cout << "<" << name << ">" << "BraiiiiiiinnnzzzZ...";
-	std::cout << std::endl;
-}
-
-Zombie::~Zombie(void)
-{
-	std::cout << "<" << name << ">" << "is alive";
-	std::cout << std::endl; 
+	return (new Zombie(name));
 }
