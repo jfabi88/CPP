@@ -10,4 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
+#include "Fixed.hpp"
+#include <stdio.h>
+
+int main( void ) {
+
+    Fixed a;
+    Fixed const b( -10 );
+    Fixed const c( 1.0f );
+    Fixed const d( b );
+
+    a = Fixed( -1234.4321f );
+
+    printf("Il valore di a %f\n", a.toFloat());
+    std::cout << "a is " << a.toInt() << " as integer" << std::endl;
+    std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+    std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+    std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+    return 0;
+}
 
