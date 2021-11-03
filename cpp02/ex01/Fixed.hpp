@@ -10,19 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
+
 class Fixed
 {
     public:
         Fixed();
-        ~Fixed();
-        Fixed(const Fixed &f);
-        int getRawBits(void) const;
-        void setRawBits(int const raw);
-        Fixed &operator=(const Fixed &fix);
         Fixed(int num);
         Fixed(float num);
+        Fixed(const Fixed &f);
+        ~Fixed();
+
+        int getRawBits(void) const;
+        int getDecimal(void) const;
+        void setRawBits(int const raw);
         float toFloat(void) const;
         int toInt(void) const;
+
+        Fixed &operator=(const Fixed &fix);
+        friend std::ostream& operator<<(std::ostream& os, const Fixed& dt);
     private:
         int value;
         static const int decimal = 8;

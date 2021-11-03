@@ -95,10 +95,8 @@ float Fixed::toFloat(void) const
         esp++;
     }
     ret += esp + 127;
-    printf("%d\n", ret);
     for (int i = 0; i < 22; i++)
         ret = ret << 1;
-    printf("Il valore di ret %d\n", ret);
     tmp = this->value;
     if (tmp < 0)
         tmp *= -1;
@@ -107,9 +105,7 @@ float Fixed::toFloat(void) const
     tmp = tmp << 1;
     for (int i = 0; i < 9; i++)
         tmp = (unsigned int)tmp >> 1;
-    printf("%d\n", tmp);
     last_value = tmp & 1;
-    printf("l'ultimo valore: %d\n", last_value);
     tmp = tmp >> 1;
     ret = ret + tmp;
     ret = ret << 1;
@@ -118,6 +114,34 @@ float Fixed::toFloat(void) const
     else
         ret += last_value;
     return (*(float *)&ret);
+}
+
+std::ostream& operator<<(std::ostream& os, const Fixed& f)
+{
+    int num;
+    int div;
+    int modulo;
+    int num_decimal;
+    int value;
+
+    value = f.getRawBits();
+    if (value < 0)
+    {
+        os << "-";
+        value *= -1;
+    }
+    num = value >> f.getDecimal();
+    div = (1 << f.getDecimal());
+    modulo = value % div;
+    num_decimal = modulo;
+    while (modulo != 0)
+    {
+        num_decimal = (num_decimal * 10);
+        modulo = (num_decimal) % div;
+    }
+    num_decimal = (num_decimal) / div;
+    os << num << "." << num_decimal;
+    return (os);
 }
 
 Fixed::Fixed()
@@ -140,6 +164,11 @@ int Fixed::getRawBits(void) const
 {
     std::cout << "getRawBits member function called" << std::endl;
     return (this->value);
+}
+
+int Fixed::getDecimal(void) const
+{
+    return (this->decimal);
 }
 
 Fixed& Fixed::operator=(const Fixed &fix)
