@@ -1,8 +1,10 @@
-NAME		=	ScavTrap
+NAME		=	zoo
 
-SRCS		=	ClapTrap.cpp \
-				ScavTrap.cpp \
-				main.cpp
+SRCS		=	Animal.cpp \
+				Cat.cpp \
+				Dog.cpp \
+				Brain.cpp \
+				main.cpp 
 	
 OBJS		=	$(SRCS:.cpp=.o)
 
