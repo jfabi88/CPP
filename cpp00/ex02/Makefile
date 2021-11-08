@@ -5,22 +5,22 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jfabi <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/11/08 18:13:32 by jfabi             #+#    #+#              #
-#    Updated: 2021/11/08 18:13:33 by jfabi            ###   ########.fr        #
+#    Created: 2021/10/24 15:58:20 by jfabi             #+#    #+#              #
+#    Updated: 2021/10/24 15:58:22 by jfabi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	cara
+NAME		=	recover
 
-SRCS		=	main.cpp \
-				Karen.cpp
-
+SRCS		=	Account.cpp \
+				test.cpp
+	
 OBJS		=	$(SRCS:.cpp=.o)
 
 CPP			=	clang++
 
 %.o:		%.cpp 
-			$(CPP) $(CFLAGS) -c $< -o $(<:.cpp=.o)
+			$(CPP) $(CFLAGS)   -c $< -o $(<:.cpp=.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98
 

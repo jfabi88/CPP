@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/08 18:07:21 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/08 18:07:23 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
 #include <fstream>
 
@@ -41,7 +53,7 @@ int main(int argc, char *argv[])
     std::ifstream input(argv[1], std::fstream::in);
     if (input.is_open())
     {
-        std::ofstream output(argv[2], std::fstream::out | std::fstream::trunc);
+        std::ofstream output(fileNameOutput, std::fstream::out | std::fstream::trunc);
         if (!output.is_open())
         {
             input.close();

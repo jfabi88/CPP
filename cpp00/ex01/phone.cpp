@@ -72,7 +72,6 @@ int	main()
 {
 	std::string	str;
 	PhoneBook	book;
-	int			index;
 
 	while (1)
 	{

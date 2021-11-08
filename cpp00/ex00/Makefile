@@ -5,38 +5,37 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jfabi <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/11/08 18:13:32 by jfabi             #+#    #+#              #
-#    Updated: 2021/11/08 18:13:33 by jfabi            ###   ########.fr        #
+#    Created: 2021/10/24 15:46:55 by jfabi             #+#    #+#              #
+#    Updated: 2021/10/24 15:47:54 by jfabi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	cara
+NAME =	megaphone
 
-SRCS		=	main.cpp \
-				Karen.cpp
+SRCS =	megaphone.cpp
 
-OBJS		=	$(SRCS:.cpp=.o)
+OBJS =	$(SRCS:.cpp=.o)
 
-CPP			=	clang++
+CPP =	clang++
 
-%.o:		%.cpp 
-			$(CPP) $(CFLAGS) -c $< -o $(<:.cpp=.o)
+%.o:	%.cpp
+		$(CPP) $(CFLAGS) -c $< -o $(<:.cpp=.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98
+CFLAGS =	-Wall -Wextra -Werror -std=c++98
 
-RM			=	rm -f
+RM =	rm -f
 
-all :		$(NAME)
+all:	$(NAME)
 
-$(NAME) :	$(OBJS)
+$(NAME):	$(OBJS)
 			$(CPP) $(CFLAGS) -o $(NAME) $(OBJS) -I.
 
-clean :		
+clean:
 			$(RM) $(OBJS)
 
-fclean 	:	clean
+fclean:		clean
 			$(RM) $(NAME)
 
-re :		fclean all
+re:			fclean all
 
-.PHONY :	all clean fclean re
+.PHONY:		all clean fclean re

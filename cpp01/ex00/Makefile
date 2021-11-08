@@ -5,22 +5,24 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jfabi <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/11/08 18:13:32 by jfabi             #+#    #+#              #
-#    Updated: 2021/11/08 18:13:33 by jfabi            ###   ########.fr        #
+#    Created: 2021/11/08 17:50:44 by jfabi             #+#    #+#              #
+#    Updated: 2021/11/08 17:50:46 by jfabi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	cara
+NAME		=	zombie
 
-SRCS		=	main.cpp \
-				Karen.cpp
-
+SRCS		=	Zombie.cpp \
+				newZombie.cpp \
+				randomChump.cpp \
+				main.cpp
+	
 OBJS		=	$(SRCS:.cpp=.o)
 
 CPP			=	clang++
 
 %.o:		%.cpp 
-			$(CPP) $(CFLAGS) -c $< -o $(<:.cpp=.o)
+			$(CPP) $(CFLAGS)   -c $< -o $(<:.cpp=.o)
 
 CFLAGS		=	-Wall -Wextra -Werror -std=c++98
 
