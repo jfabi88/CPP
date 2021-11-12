@@ -38,6 +38,6 @@ int main(int argc, char *argv[])
             std::cout << "[" << level[3] << "]" << std::endl;
             cara.complain(level[3]); 
         default:
-            break;
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
     }
 }

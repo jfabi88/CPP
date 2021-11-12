@@ -12,25 +12,9 @@
 
 #include "HumanA.hpp"
 
-HumanA::HumanA(std::string name, Weapon weapon)
+HumanA::HumanA(std::string name, Weapon &weaponAdd) : weapon(weaponAdd)
 {
     this->name = name;
-    this->weapon = weapon;
-}
-
-void HumanA::setWeapon(Weapon weapon)
-{
-    this->weapon = weapon;
-}
-
-void HumanA::setName(std::string name)
-{
-    this->name = name;
-}
-
-Weapon HumanA::getWeapon()
-{
-    return (weapon);
 }
 
 std::string HumanA::getName()
