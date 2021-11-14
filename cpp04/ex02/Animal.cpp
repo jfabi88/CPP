@@ -27,13 +27,6 @@ std::string Animal::getType() const
     return (this->type);
 }
 
-Animal  Animal::operator=(const Animal &copy)
-{
-    Animal  ret(copy.getType());
-
-    return (ret);
-}
-
 std::ostream& operator<<(std::ostream& os, const Animal& cp)
 {
     os << "type: " << cp.getType();

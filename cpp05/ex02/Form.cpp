@@ -24,9 +24,24 @@ void    Form::beSigned(const Bureaucrat bu)
     this->sign = true;
 }
 
-std::string Form::getName()
+std::string Form::getName() const
 {
     return (this->name);
+}
+
+int         Form::getGradeSign() const
+{
+    return (this->gradeSign);
+}
+
+int         Form::getGradeExec() const
+{
+    return (this->gradeExec);
+}
+
+bool        Form::getSigned() const
+{
+    return (this->sign);
 }
 
 std::ostream&    operator<<(std::ostream& os, const Form& cp)
@@ -38,14 +53,7 @@ std::ostream&    operator<<(std::ostream& os, const Form& cp)
     return (os);
 }
 
-Form Form::operator=(const Form &copy)
-{
-    Form    ret(copy);
-
-    return (ret);
-}
-
-/**PRIVATE**/
+/**PROTECTED**/
 
 const char *Form::GradeTooHighException::what() const throw()
 {
@@ -56,6 +64,13 @@ const char *Form::GradeTooLowException::what() const throw()
 {
     return ("Too low grade");
 }
+
+const char *Form::FormNotSignedException::what() const throw()
+{
+    return ("Form not signed");
+}
+
+/**PRIVATE**/
 
 void        Form::valueGrade(int num)
 {

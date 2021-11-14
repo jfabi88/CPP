@@ -4,7 +4,6 @@
 
 int main()
 {
-    const Animal        *meta = new Animal();
     const Animal        *cat = new Cat();
     const Animal        *secondCat = new Cat();
     const Animal        *dog = new Dog();
@@ -14,7 +13,6 @@ int main()
     std::cout << meta->getType() << std::endl;
 
     std::cout << "The sound: \nCat";
-    cat.;
     std::cout << "Dog: ";
     dog->makeSound();
 

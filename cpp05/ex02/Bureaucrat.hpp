@@ -18,6 +18,7 @@ class Bureaucrat
         void        deGrade(int num);
         void        inGrade(int num);
         void        signForm(Form &form);
+        void        executeForm(Form const & form);
 
         friend std::ostream&    operator<<(std::ostream& os, const Bureaucrat& cp);
         Bureaucrat              operator=(const Bureaucrat &copy);

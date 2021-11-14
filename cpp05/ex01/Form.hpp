@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class Form
 {
     public:
@@ -11,7 +13,8 @@ class Form
         Form(const Form &cp);
         ~Form();
 
-        void    beSigned(const Bureaucrat &bu);
+        void        beSigned(const Bureaucrat bu);
+        std::string getName();
 
         friend std::ostream&    operator<<(std::ostream& os, const Form& cp);
         Form                    operator=(const Form &copy);

@@ -26,6 +26,18 @@ std::string Bureaucrat::getName() const
     return (this->name);
 }
 
+void        Bureaucrat::executeForm(Form const & form)
+{
+    try
+    {
+        form.execute(*this);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
 void        Bureaucrat::deGrade(int num)
 {
     this->setGrade(num + this->grade);

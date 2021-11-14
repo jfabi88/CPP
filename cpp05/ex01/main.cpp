@@ -1,38 +1,16 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main(void)
 {
-    Bureaucrat bur("Pollo", 10);
+    Bureaucrat  firstBur("Pollo", 10);
+    Bureaucrat  secondBur("Mucca", 8);
+    Form        *form = new Form("bill",8, 12);
 
-    std::cout << bur << std::endl;
-    bur.inGrade(5);
-    std::cout << bur << std::endl;
-    try
-    {
-        bur.inGrade(9);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << bur << std::endl;
-    try
-    {
-        bur.deGrade(145);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << bur << std::endl;
-    try
-    {
-        bur.deGrade(90);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << bur << std::endl;
+    std::cout << *form << std::endl;
+    firstBur.signForm(*form);
+    std::cout << *form << std::endl;
+    secondBur.signForm(*form);
+    std::cout << *form << std::endl;
     return (0);
 }
