@@ -34,12 +34,16 @@ Fixed::Fixed(float num)
     int limit;
 
     tmp = *(unsigned int*)&num;
+    std::cout << "Float bit: " << tmp << std::endl;
     tmp = tmp << 1;
     limit = 23 + 1;
     for (int i = 0; i < limit; i++)
         tmp = tmp >> 1;
     esp = tmp - 127;
-    this->value = 1;
+    if (esp >= 0)
+        this->value = 1;
+    else
+        this->value = 0;
     limit = esp + 8;
     if (limit > 23)
         limit = 23;
@@ -56,6 +60,7 @@ Fixed::Fixed(float num)
     this->value = this->value + tmp;
     if (num < 0)
         this->value = this->value * -1;
+    std::cout << "Value: " << this->value << std::endl;
 }
 
 int Fixed::toInt(void) const
@@ -94,7 +99,7 @@ float Fixed::toFloat(void) const
         tmp = tmp >> 1;
         esp++;
     }
-    ret += esp + 127;
+    ret += esp + 126 + tmp;
     for (int i = 0; i < 22; i++)
         ret = ret << 1;
     tmp = this->value;
@@ -113,34 +118,13 @@ float Fixed::toFloat(void) const
         ret -= last_value;
     else
         ret += last_value;
+    std::cout << "Alla fine: " << ret << std::endl;
     return (*(float *)&ret);
 }
 
 std::ostream& operator<<(std::ostream& os, const Fixed& f)
 {
-    int num;
-    int div;
-    int modulo;
-    int num_decimal;
-    int value;
-
-    value = f.getRawBits();
-    if (value < 0)
-    {
-        os << "-";
-        value *= -1;
-    }
-    num = value >> f.getDecimal();
-    div = (1 << f.getDecimal());
-    modulo = value % div;
-    num_decimal = modulo;
-    while (modulo != 0)
-    {
-        num_decimal = (num_decimal * 10);
-        modulo = (num_decimal) % div;
-    }
-    num_decimal = (num_decimal) / div;
-    os << num << "." << num_decimal;
+    os << f.toFloat();
     return (os);
 }
 
