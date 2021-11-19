@@ -14,6 +14,98 @@
 #include <iostream>
 #include <stdio.h>
 
+/**UTILS**/
+
+int createMask(int decimal)
+{
+    int ret;
+    int i;
+
+    ret = 1;
+    i = 0;
+    while (i < (32 - decimal))
+    {
+        i++;
+        ret = ret << 1;
+    }
+    while (i < 32)
+    {
+        i++;
+        ret = ret << 1;
+        ret = ret + 1;
+    }
+    return (ret);
+}
+
+int findReverseEsp(int num)
+{
+    int ret;
+
+    ret = 0;
+    while (num != 1)
+    {
+        ret++;
+        num = num >> 1;
+    }
+    return (ret - 8 + 127);
+}
+
+int findReverseMantissa(int num)
+{
+    int ret;
+
+    ret = num;
+    while (ret > 0)
+        ret = ret << 1;
+    ret = ret << 1;
+    ret = (unsigned int)ret >> 9;
+    return (ret);
+}
+
+int findSign(unsigned int num)
+{
+    if ((num >> 31) & 1)
+        return (1);
+    return (0);
+}
+
+int findEsp(unsigned int num)
+{
+    unsigned int ret;
+
+    ret = num << 1;
+    ret = (unsigned int)ret >> 24;
+    return (ret - 127);
+}
+
+int findMantissa(unsigned int num)
+{
+    unsigned int ret;
+
+    ret = num << 9;
+    ret = (unsigned int)ret >> 9;
+    ret = ret + (1 << 23);
+    return (ret);
+}
+
+int findInteger(int esp, int mantissa)
+{
+    if (esp > 23 || esp < 0)
+        return (0);
+    return ((unsigned int)mantissa >> (24 - (esp + 1)));
+}
+
+int findDecimal(int esp, int mantissa)
+{
+    int ret;
+
+    if (esp < -8 || esp > 23)
+        return (0);
+    ret = mantissa << (8 + (esp + 1));
+    ret = (unsigned int)ret >> 24;
+    return (ret);
+}
+
 /*Constructor*/
 
 Fixed::Fixed()
@@ -33,40 +125,25 @@ Fixed::Fixed(int integer)
 
     set = integer;
     set = set << getDecimal();
-    this->setRawBits(set);
+    this->value = set;
 }
 
 Fixed::Fixed(float num)
 {
-    unsigned int tmp;
-    int set;
-    int esp;
-    int limit;
+    int sign;
+    int espn;
+    int mantissa;
+    int integer;
+    int decimal;
 
-    tmp = *(unsigned int*)&num;
-    tmp = tmp << 1;
-    limit = 23 + 1;
-    for (int i = 0; i < limit; i++)
-        tmp = tmp >> 1;
-    esp = tmp - 127;
-    set = 1;
-    limit = esp + 8;
-    if (limit > 23)
-        limit = 23;
-    for (int i = 0; i < limit; i++)
-        set = set << 1;
-    tmp = *(unsigned int*)&num;
-    for (int i = 0; i < 9; i++)
-        tmp = tmp << 1;
-    limit = 9 + (23 - esp - 8);
-    if (limit < 9)
-        limit = 9;
-    for (int i = 0; i < limit; i++)
-        tmp = tmp >> 1;
-    set = set + tmp;
-    if (num < 0)
-        set = set * -1;
-    this->setRawBits(set);
+    sign = findSign(*(unsigned int*)&num);
+    espn = findEsp(*(unsigned int*)&num);
+    mantissa = findMantissa(*(unsigned int*)&num);
+    integer = findInteger(espn, mantissa);
+    decimal = findDecimal(espn, mantissa);
+    this->value = ((integer << 8) + decimal);
+    if (sign)
+        this->value = this->value * -1;
 }
 
 Fixed::~Fixed()
@@ -109,44 +186,25 @@ int Fixed::toInt(void) const
 float Fixed::toFloat(void) const
 {
     int tmp;
+    int sign;
+    int mantissa;
     int esp;
-    int ret;
-    int last_value;
+    unsigned int    ret;
 
-    esp = 0;
-    ret = 0;
-    tmp = this->toInt();
-    if (tmp < 0)
+    sign = 0;
+    tmp = this->value;
+    if (this->value < 0)
     {
-        tmp *= -1;
-        ret = 1;
+        sign = 1;
+        tmp = tmp * -1;
     }
-    for (int i = 0; i < 8; i++)
-        ret = ret << 1;
-    while (tmp != 1 && tmp != 0)
-    {
-        tmp = tmp >> 1;
-        esp++;
-    }
-    ret += esp + 127;
-    for (int i = 0; i < 22; i++)
-        ret = ret << 1;
-    tmp = this->getRawBits();
-    if (tmp < 0)
-        tmp *= -1;
-    while (tmp > 0)
-        tmp = tmp << 1;
-    tmp = tmp << 1;
-    for (int i = 0; i < 9; i++)
-        tmp = (unsigned int)tmp >> 1;
-    last_value = tmp & 1;
-    tmp = tmp >> 1;
-    ret = ret + tmp;
-    ret = ret << 1;
-    if (ret < 0)
-        ret -= last_value;
-    else
-        ret += last_value;
+    if (tmp == 0)
+        return (sign << 31);
+    esp = findReverseEsp(tmp);
+    mantissa = findReverseMantissa(tmp);
+    ret = sign << 31;
+    ret = ret + (esp << 23);
+    ret = ret + mantissa;
     return (*(float *)&ret);
 }
 
@@ -186,55 +244,70 @@ const Fixed &Fixed::max(const Fixed &first, const Fixed &second)
 
 bool Fixed::operator>(const Fixed sec) const
 {
-    return (this->getRawBits() > sec.getRawBits());
+    return (this->value > sec.getRawBits());
 }
 
 bool Fixed::operator<(const Fixed sec) const
 {
-    return (this->getRawBits() < sec.getRawBits());
+    return (this->value < sec.getRawBits());
 }
 
 bool Fixed::operator>=(const Fixed sec) const
 {
-    return (this->getRawBits() >= sec.getRawBits());
+    return (this->value >= sec.getRawBits());
 }
 
 bool Fixed::operator<=(const Fixed sec) const
 {
-    return (this->getRawBits() <= sec.getRawBits());
+    return (this->value <= sec.getRawBits());
 }
 
 bool Fixed::operator==(const Fixed sec) const
 {
-    return (this->getRawBits() - sec.getRawBits() <= 3 && this->getRawBits() - sec.getRawBits() >= -3);
+    return (this->value - sec.getRawBits() <= 3 && this->value - sec.getRawBits() >= -3);
 }
 
 bool Fixed::operator!=(const Fixed sec) const
 {
-    return (this->getRawBits() - sec.getRawBits() > 3 || this->getRawBits() - sec.getRawBits() < -3);
+    return (this->value - sec.getRawBits() > 3 || this->value - sec.getRawBits() < -3);
 }
 
 Fixed Fixed::operator+(const Fixed second) const
 {
-    return (Fixed(this->getRawBits() + second.getRawBits()));
+    return (Fixed(this->value + second.getRawBits()));
 }
 
 Fixed Fixed::operator-(const Fixed second) const
 {
-    return (Fixed(this->getRawBits() - second.getRawBits()));
+    return (Fixed(this->value - second.getRawBits()));
 }
 
 Fixed Fixed::operator*(const Fixed second) const
 {
-    Fixed   ret;
+    Fixed ret;
+    int integer;
+    int decimal;
+    int mask;
 
-    ret.setRawBits((this->getRawBits() * second.getRawBits()) >> this->getDecimal());
+    mask = createMask(this->getDecimal());
+    integer = ((this->toInt() * second.toInt()) << this->getDecimal()) +  (this->toInt() * (second.getRawBits() & mask));
+    decimal = (((this->value & mask) * (second.getRawBits() & mask)) >> (this->getDecimal() * 2)) + ((this->value & mask) * second.toInt());
+    ret.setRawBits(integer + decimal);
     return (ret);
 }
 
 Fixed Fixed::operator/(const Fixed second) const
 {
-    return (Fixed((this->getRawBits() / second.getRawBits()) >> this->getDecimal()));
+    Fixed ret;
+    int integer;
+    int decimal;
+    int mask;
+
+    mask = createMask(this->getDecimal());
+    integer = ((this->toInt() / second.toInt()) << this->getDecimal()) +  (this->toInt() / (second.getRawBits() & mask));
+    decimal = (((this->value & mask) / (second.getRawBits() & mask)) >> (this->getDecimal() * 2)) + ((this->value & mask) / second.toInt());
+    ret.setRawBits(integer + decimal);
+    return (ret);
 }
 
 
@@ -288,12 +361,30 @@ Fixed Fixed::operator-(const int second) const
 
 Fixed Fixed::operator*(const int second) const
 {
-    return (Fixed((this->getRawBits() * (second << this->getDecimal()) >> this->getDecimal())));
+    Fixed ret;
+    int integer;
+    int decimal;
+    int mask;
+
+    mask = createMask(this->getDecimal());
+    integer = ((this->toInt() * second) << this->getDecimal());
+    decimal = ((this->value & mask) * second);
+    ret.setRawBits(integer + decimal);
+    return (ret);
 }
 
 Fixed Fixed::operator/(const int second) const
 {
-    return (Fixed((this->getRawBits() / (second << this->getDecimal()) >> this->getDecimal())));
+    Fixed ret;
+    int integer;
+    int decimal;
+    int mask;
+
+    mask = createMask(this->getDecimal());
+    integer = ((this->toInt() / second) << this->getDecimal());
+    decimal = ((this->value & mask) / second);
+    ret.setRawBits(integer + decimal);
+    return (ret);
 }
 
 /*Overload operators FLOAT */
@@ -351,7 +442,7 @@ Fixed Fixed::operator+(const float second) const
     float myFloat;
 
     myFloat = this->toFloat();
-    return (myFloat + second);
+    return (Fixed(myFloat + second));
 }
 
 Fixed Fixed::operator-(const float second) const
@@ -359,7 +450,7 @@ Fixed Fixed::operator-(const float second) const
     float myFloat;
 
     myFloat = this->toFloat();
-    return (myFloat - second);
+    return (Fixed(myFloat - second));
 }
 
 Fixed Fixed::operator*(const float second) const
@@ -367,7 +458,7 @@ Fixed Fixed::operator*(const float second) const
     float myFloat;
 
     myFloat = this->toFloat();
-    return (myFloat * second);
+    return (Fixed(myFloat * second));
 }
 
 Fixed Fixed::operator/(const float second) const
@@ -375,62 +466,38 @@ Fixed Fixed::operator/(const float second) const
     float myFloat;
 
     myFloat = this->toFloat();
-    return (myFloat / second);
+    return (Fixed(myFloat / second));
 }
 
 /*General overload operators*/
 
 Fixed Fixed::operator++(int)
 {
-    Fixed tmp(*this);
-    this->setRawBits(this->getRawBits() + 1);
-    return (tmp);
+    this->value = this->value + 1;
+    return (*this);
 }
 
 Fixed Fixed::operator++()
 {
-    this->setRawBits(this->getRawBits() + 1);
+    this->value = this->value + 1;
     return (*this);
 }
 
 Fixed Fixed::operator--(int)
 {
-    Fixed tmp(*this);
-    this->setRawBits(this->getRawBits() - 1);
-    return (tmp);
+    this->value = this->value - 1;
+    return (*this);
 }
 
 Fixed Fixed::operator--()
 {
-    this->setRawBits(this->getRawBits() - 1);
+    this->value = this->value - 1;
     return (*this);
 }
 
 std::ostream& operator<<(std::ostream& os, const Fixed& f)
 {
-    int num;
-    int div;
-    int modulo;
-    int num_decimal;
-    int value;
-
-    value = f.getRawBits();
-    if (value < 0)
-    {
-        os << "-";
-        value *= -1;
-    }
-    num = value >> f.getDecimal();
-    div = (1 << f.getDecimal());
-    modulo = value % div;
-    num_decimal = modulo;
-    while (modulo != 0)
-    {
-        num_decimal = (num_decimal * 10);
-        modulo = (num_decimal) % div;
-    }
-    num_decimal = (num_decimal) / div;
-    os << num << "." << num_decimal;
+    os << std::fixed << std::setprecision(8) << f.toFloat();
     return (os);
 }
 

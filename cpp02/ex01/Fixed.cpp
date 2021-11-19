@@ -14,6 +14,79 @@
 #include <iostream>
 #include <stdio.h>
 
+/**UTILS**/
+
+int findReverseEsp(int num)
+{
+    int ret;
+
+    ret = 0;
+    while (num != 1)
+    {
+        ret++;
+        num = num >> 1;
+    }
+    return (ret - 8 + 127);
+}
+
+int findReverseMantissa(int num)
+{
+    int ret;
+
+    ret = num;
+    while (ret > 0)
+        ret = ret << 1;
+    ret = ret << 1;
+    ret = (unsigned int)ret >> 9;
+    return (ret);
+}
+
+int findSign(unsigned int num)
+{
+    if ((num >> 31) & 1)
+        return (1);
+    return (0);
+}
+
+int findEsp(unsigned int num)
+{
+    unsigned int ret;
+
+    ret = num << 1;
+    ret = (unsigned int)ret >> 24;
+    return (ret - 127);
+}
+
+int findMantissa(unsigned int num)
+{
+    unsigned int ret;
+
+    ret = num << 9;
+    ret = (unsigned int)ret >> 9;
+    ret = ret + (1 << 23);
+    return (ret);
+}
+
+int findInteger(int esp, int mantissa)
+{
+    if (esp > 23 || esp < 0)
+        return (0);
+    return ((unsigned int)mantissa >> (24 - (esp + 1)));
+}
+
+int findDecimal(int esp, int mantissa)
+{
+    int ret;
+
+    if (esp < -8 || esp > 23)
+        return (0);
+    ret = mantissa << (8 + (esp + 1));
+    ret = (unsigned int)ret >> 24;
+    return (ret);
+}
+
+/**PUBLIC**/
+
 Fixed::Fixed(int integer)
 {
     int i;
@@ -29,38 +102,20 @@ Fixed::Fixed(int integer)
 
 Fixed::Fixed(float num)
 {
-    unsigned int tmp;
-    int esp;
-    int limit;
+    int sign;
+    int espn;
+    int mantissa;
+    int integer;
+    int decimal;
 
-    tmp = *(unsigned int*)&num;
-    std::cout << "Float bit: " << tmp << std::endl;
-    tmp = tmp << 1;
-    limit = 23 + 1;
-    for (int i = 0; i < limit; i++)
-        tmp = tmp >> 1;
-    esp = tmp - 127;
-    if (esp >= 0)
-        this->value = 1;
-    else
-        this->value = 0;
-    limit = esp + 8;
-    if (limit > 23)
-        limit = 23;
-    for (int i = 0; i < limit; i++)
-        this->value = this->value << 1;
-    tmp = *(unsigned int*)&num;
-    for (int i = 0; i < 9; i++)
-        tmp = tmp << 1;
-    limit = 9 + (23 - esp - 8);
-    if (limit < 9)
-        limit = 9;
-    for (int i = 0; i < limit; i++)
-        tmp = tmp >> 1;
-    this->value = this->value + tmp;
-    if (num < 0)
+    sign = findSign(*(unsigned int*)&num);
+    espn = findEsp(*(unsigned int*)&num);
+    mantissa = findMantissa(*(unsigned int*)&num);
+    integer = findInteger(espn, mantissa);
+    decimal = findDecimal(espn, mantissa);
+    this->value = ((integer << 8) + decimal);
+    if (sign)
         this->value = this->value * -1;
-    std::cout << "Value: " << this->value << std::endl;
 }
 
 int Fixed::toInt(void) const
@@ -80,45 +135,25 @@ int Fixed::toInt(void) const
 float Fixed::toFloat(void) const
 {
     int tmp;
+    int sign;
+    int mantissa;
     int esp;
-    int ret;
-    int last_value;
+    unsigned int    ret;
 
-    esp = 0;
-    ret = 0;
-    tmp = this->toInt();
-    if (tmp < 0)
-    {
-        tmp *= -1;
-        ret = 1;
-    }
-    for (int i = 0; i < 8; i++)
-        ret = ret << 1;
-    while (tmp != 1 && tmp != 0)
-    {
-        tmp = tmp >> 1;
-        esp++;
-    }
-    ret += esp + 126 + tmp;
-    for (int i = 0; i < 22; i++)
-        ret = ret << 1;
+    sign = 0;
     tmp = this->value;
-    if (tmp < 0)
-        tmp *= -1;
-    while (tmp > 0)
-        tmp = tmp << 1;
-    tmp = tmp << 1;
-    for (int i = 0; i < 9; i++)
-        tmp = (unsigned int)tmp >> 1;
-    last_value = tmp & 1;
-    tmp = tmp >> 1;
-    ret = ret + tmp;
-    ret = ret << 1;
-    if (ret < 0)
-        ret -= last_value;
-    else
-        ret += last_value;
-    std::cout << "Alla fine: " << ret << std::endl;
+    if (this->value < 0)
+    {
+        sign = 1;
+        tmp = tmp * -1;
+    }
+    if (tmp == 0)
+        return (sign << 31);
+    esp = findReverseEsp(tmp);
+    mantissa = findReverseMantissa(tmp);
+    ret = sign << 31;
+    ret = ret + (esp << 23);
+    ret = ret + mantissa;
     return (*(float *)&ret);
 }
 
