@@ -2,13 +2,21 @@
 
 /**PUBLIC**/
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 20, 100, 50)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
+    this->Name = name;
+    this->HitPoint = 100;
+    this->EnergyPoints = 50;
+    this->AttackDamage = 20;
     std::cout << "Hi Scavo" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap &copy) : ClapTrap(copy.getName(), copy.getAttackDamage(), copy.getHitPoint(), copy.getEnergyPoints())
+ScavTrap::ScavTrap(const ScavTrap &copy) : ClapTrap(copy.getName())
 {
+    this->Name = copy.getName();
+    this->HitPoint = copy.getHitPoint();
+    this->EnergyPoints = copy.getEnergyPoints();
+    this->AttackDamage = copy.getAttackDamage();
     std::cout << "Hi Scavo" << std::endl;
 }
 
@@ -26,10 +34,9 @@ ScavTrap ScavTrap::operator=(const ScavTrap &copy)
 
 std::ostream& operator<<(std::ostream& os, const ScavTrap& cp)
 {
-    os << "Scavo (name: " << cp.getName() << " ;attack: " << cp.getAttackDamage() \
-    << " ;HitPonits: " << cp.getHitPoint() << " ;Energy: " << cp.getEnergyPoints()\
-    << ")";
- 
+    os << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
+    << "; energy: " << cp.getEnergyPoints() << "; damage: " <<\
+    cp.getAttackDamage() << ")";
     return (os);
 }
 

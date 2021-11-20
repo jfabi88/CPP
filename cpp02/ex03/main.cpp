@@ -19,8 +19,8 @@ int main()
     Point a(1, 1);
     Point b(1, 2);
     Point c(2, 1);
-    Point test1(1, 1.22f);
-    Point test2(1, 1);
+    Point test1(-1.01, 1.22f);
+    Point test2(1.1f, -1.1);
     Point test3(1.25, 1.25);
 
     std::cout << "TRIANGLE: p1" << a << ", p2" << b << ", p3" << c << std::endl;

@@ -2,13 +2,29 @@
 
 /**PUBLIC**/
 
-ScavTrap::ScavTrap(std::string name) : Clapo(name, 30, 100, 100)
+ScavTrap::ScavTrap()
 {
+    this->Name = "";
+    this->HitPoint = 100;
+    this->EnergyPoints = 50;
+    this->AttackDamage = 20;
     std::cout << "Hi Scavo" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap &copy) : Clapo(copy.getClapTrap())
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 {
+    this->HitPoint = 100;
+    this->EnergyPoints = 50;
+    this->AttackDamage = 20;
+    std::cout << "Hi Scavo" << std::endl;
+}
+
+ScavTrap::ScavTrap(const ScavTrap &copy)
+{
+    this->Name = copy.getName();
+    this->HitPoint = copy.getHitPoint();
+    this->EnergyPoints = copy.getEnergyPoints();
+    this->AttackDamage = copy.getAttackDamage();
     std::cout << "Hi Scavo" << std::endl;
 }
 
@@ -26,42 +42,13 @@ ScavTrap ScavTrap::operator=(const ScavTrap &copy)
 
 std::ostream& operator<<(std::ostream& os, const ScavTrap& cp)
 {
-    os << cp.getClapTrap();
+    os << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
+    << "; energy: " << cp.getEnergyPoints() << "; damage: " <<\
+    cp.getAttackDamage() << ")";
     return (os);
-}
-
-unsigned int    ScavTrap::getAttackDamage(void) const
-{
-    return (this->getClapTrap().getAttackDamage());
-}
-
-unsigned int    ScavTrap::getHitPoint(void) const
-{
-    return (this->getClapTrap().getHitPoint());
-}
-unsigned int    ScavTrap::getEnergyPoint(void) const
-{
-    return (this->getClapTrap().getEnergyPoints());
-}
-
-std::string     ScavTrap::getName(void) const
-{
-    return (this->getClapTrap().getName());
-}
-
-ClapTrap        ScavTrap::getClapTrap(void) const
-{
-    return(this->Clapo);
 }
 
 void            ScavTrap::guardGate(void)
 {
     std::cout << this->getName() << " have entered in Gate keeper mode" << std::endl;
-}
-
-/**PRIVATE**/
-
-void            ScavTrap::setClapTrap(ClapTrap tmp)
-{
-    this->Clapo = tmp;
 }

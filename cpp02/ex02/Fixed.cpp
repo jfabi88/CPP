@@ -110,8 +110,7 @@ int findDecimal(int esp, int mantissa)
 
 Fixed::Fixed()
 {
-    std::cout << "Default constructor called" << std::endl;
-    value = 0;
+        value = 0;
 }
 
 Fixed::Fixed(const Fixed &f)
@@ -148,7 +147,6 @@ Fixed::Fixed(float num)
 
 Fixed::~Fixed()
 {
-    std::cout << "Destructor called" << std::endl;
 }
 
 /*Functions*/
@@ -165,7 +163,6 @@ int Fixed::getDecimal(void) const
 
 void Fixed::setRawBits(int const raw)
 {
-    std::cout << "setRawBits member function called" << std::endl;
     this->value = raw;
 }
 
@@ -274,44 +271,38 @@ bool Fixed::operator!=(const Fixed sec) const
 
 Fixed Fixed::operator+(const Fixed second) const
 {
-    return (Fixed(this->value + second.getRawBits()));
+    Fixed ret;
+
+    ret.setRawBits(this->value + second.getRawBits());
+    return ret;
 }
 
 Fixed Fixed::operator-(const Fixed second) const
 {
-    return (Fixed(this->value - second.getRawBits()));
+    Fixed ret;
+
+    ret.setRawBits(this->value - second.getRawBits());
+    return ret;
 }
 
 Fixed Fixed::operator*(const Fixed second) const
 {
     Fixed ret;
-    int integer;
-    int decimal;
-    int mask;
 
-    mask = createMask(this->getDecimal());
-    integer = ((this->toInt() * second.toInt()) << this->getDecimal()) +  (this->toInt() * (second.getRawBits() & mask));
-    decimal = (((this->value & mask) * (second.getRawBits() & mask)) >> (this->getDecimal() * 2)) + ((this->value & mask) * second.toInt());
-    ret.setRawBits(integer + decimal);
-    return (ret);
+    ret.setRawBits(((__int64_t)this->value * (__int64_t)second.getRawBits()) / (1 << this->getDecimal()));
+    return ret;
 }
 
 Fixed Fixed::operator/(const Fixed second) const
 {
     Fixed ret;
-    int integer;
-    int decimal;
-    int mask;
 
-    mask = createMask(this->getDecimal());
-    integer = ((this->toInt() / second.toInt()) << this->getDecimal()) +  (this->toInt() / (second.getRawBits() & mask));
-    decimal = (((this->value & mask) / (second.getRawBits() & mask)) >> (this->getDecimal() * 2)) + ((this->value & mask) / second.toInt());
-    ret.setRawBits(integer + decimal);
+    ret.setRawBits(((__int64_t)this->value * (1 << this->getDecimal())) / second.getRawBits());
     return (ret);
 }
 
 
-/*Overload operators int*/
+/*Overload operators INTEGER*/
 
 bool Fixed::operator>(const int second) const
 {
@@ -351,39 +342,33 @@ bool Fixed::operator!=(const int second) const
 
 Fixed Fixed::operator+(const int second) const
 {
-    return (Fixed(this->getRawBits() + (second << this->getDecimal())));
+    Fixed ret;
+
+    ret.setRawBits(this->value + (second << this->getDecimal()));
+    return (ret);
 }
 
 Fixed Fixed::operator-(const int second) const
 {
-    return (Fixed(this->getRawBits() - (second << this->getDecimal())));
+    Fixed ret;
+
+    ret.setRawBits(this->value - (second << this->getDecimal()));
+    return (ret);
 }
 
 Fixed Fixed::operator*(const int second) const
 {
     Fixed ret;
-    int integer;
-    int decimal;
-    int mask;
 
-    mask = createMask(this->getDecimal());
-    integer = ((this->toInt() * second) << this->getDecimal());
-    decimal = ((this->value & mask) * second);
-    ret.setRawBits(integer + decimal);
+    ret.setRawBits(this->value * second);
     return (ret);
 }
 
 Fixed Fixed::operator/(const int second) const
 {
     Fixed ret;
-    int integer;
-    int decimal;
-    int mask;
 
-    mask = createMask(this->getDecimal());
-    integer = ((this->toInt() / second) << this->getDecimal());
-    decimal = ((this->value & mask) / second);
-    ret.setRawBits(integer + decimal);
+    ret.setRawBits(this->value / second);
     return (ret);
 }
 
@@ -503,7 +488,6 @@ std::ostream& operator<<(std::ostream& os, const Fixed& f)
 
 Fixed& Fixed::operator=(const Fixed &fix)
 {
-    std::cout << "Assignation operator called" << std::endl;
     this->value = fix.getRawBits();
     return (*this);
 }

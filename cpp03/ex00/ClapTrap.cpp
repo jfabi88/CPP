@@ -34,7 +34,7 @@ ClapTrap ClapTrap::operator=(const ClapTrap &copy)
     
 void    ClapTrap::attack(std::string const & target)
 {
-    std::cout << "Clap " << this->getName() << " attack " \
+    std::cout << this->getName() << " attack " \
     << target << ", causing " << this->getAttackDamage()\
     << " points of damage!" <<std::endl;
 }

@@ -2,19 +2,35 @@
 
 /**PUBLIC**/
 
-FragTrap::FragTrap(std::string name) : Clapo(name, 30, 100, 100)
+FragTrap::FragTrap()
 {
+    this->Name = "";
+    this->HitPoint = 100;
+    this->EnergyPoints = 100;
+    this->AttackDamage = 30;
     std::cout << "Hi Frago" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &copy) : Clapo(copy.getClapTrap())
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
+    this->HitPoint = 100;
+    this->EnergyPoints = 100;
+    this->AttackDamage = 30;
+    std::cout << "Hi Frago" << std::endl;
+}
+
+FragTrap::FragTrap(const FragTrap &copy)
+{
+    this->Name = copy.getName();
+    this->HitPoint = copy.getHitPoint();
+    this->EnergyPoints = copy.getEnergyPoints();
+    this->AttackDamage = copy.getAttackDamage();
     std::cout << "Hi Frago" << std::endl;
 }
 
 FragTrap::~FragTrap()
 {
-    std::cout << "I love you Frago..." << std::endl;
+    std::cout << "Frago fell from the tree" << std::endl;
 }
 
 FragTrap FragTrap::operator=(const FragTrap &copy)
@@ -26,42 +42,13 @@ FragTrap FragTrap::operator=(const FragTrap &copy)
 
 std::ostream& operator<<(std::ostream& os, const FragTrap& cp)
 {
-    os << cp.getClapTrap();
+    os << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
+    << "; energy: " << cp.getEnergyPoints() << "; damage: " <<\
+    cp.getAttackDamage() << ")";
     return (os);
 }
 
-unsigned int    FragTrap::getAttackDamage(void) const
+void            FragTrap::highFiveGuys(void)
 {
-    return (this->getClapTrap().getAttackDamage());
-}
-
-unsigned int    FragTrap::getHitPoint(void) const
-{
-    return (this->getClapTrap().getHitPoint());
-}
-unsigned int    FragTrap::getEnergyPoint(void) const
-{
-    return (this->getClapTrap().getEnergyPoints());
-}
-
-std::string     FragTrap::getName(void) const
-{
-    return (this->getClapTrap().getName());
-}
-
-ClapTrap        FragTrap::getClapTrap(void) const
-{
-    return(this->Clapo);
-}
-
-void            highFiveGuys(void)
-{
-    std::cout << "high five, we won the friendship medal" << std::endl;
-}
-
-/**PRIVATE**/
-
-void            FragTrap::setClapTrap(ClapTrap tmp)
-{
-    this->Clapo = tmp;
+    std::cout << "High five! Pergo and Frago: one for all, all for one" << std::endl;
 }

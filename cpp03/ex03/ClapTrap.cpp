@@ -1,6 +1,15 @@
 #include "ClapTrap.hpp"
 #include <iostream>
 
+ClapTrap::ClapTrap()
+{
+    this->Name = "";
+    this->setAttackDamage(0);
+    this->setEnergyPoints(10);
+    this->setHitPoint(10);
+    std::cout << "Hi Clapo!" << std::endl;
+}
+
 ClapTrap::ClapTrap(std::string name)
 {
     this->Name = name;
@@ -35,7 +44,7 @@ ClapTrap::~ClapTrap()
 
 void    ClapTrap::attack(std::string const & target)
 {
-    std::cout << "Clap " << this->getName() << " attack " \
+    std::cout << this->getName() << " attack " \
     << target << ", causing " << this->getAttackDamage()\
     << " points of damage!" <<std::endl;
 }

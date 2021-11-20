@@ -2,19 +2,27 @@
 
 /**PUBLIC**/
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name, 30, 100, 100)
+FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
+    this->Name = name;
+    this->HitPoint = 100;
+    this->EnergyPoints = 50;
+    this->AttackDamage = 20;
     std::cout << "Hi Frago" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &copy) : ClapTrap(copy.getName(), 30, 100, 100)
+FragTrap::FragTrap(const FragTrap &copy) : ClapTrap(copy.getName())
 {
+    this->Name = copy.getName();
+    this->HitPoint = copy.getHitPoint();
+    this->EnergyPoints = copy.getEnergyPoints();
+    this->AttackDamage = copy.getAttackDamage();
     std::cout << "Hi Frago" << std::endl;
 }
 
 FragTrap::~FragTrap()
 {
-    std::cout << "I love you Frago..." << std::endl;
+    std::cout << "Frago fell from the tree" << std::endl;
 }
 
 FragTrap FragTrap::operator=(const FragTrap &copy)
@@ -26,14 +34,13 @@ FragTrap FragTrap::operator=(const FragTrap &copy)
 
 std::ostream& operator<<(std::ostream& os, const FragTrap& cp)
 {
-    os << "Frago (name: " << cp.getName() << " ;Attack: " << cp.getAttackDamage() \
-    << " ;HitPonits: " << cp.getHitPoint() << " ;Energy: " << cp.getEnergyPoints()\
-    << ")";
-
+    os << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
+    << "; energy: " << cp.getEnergyPoints() << "; damage: " <<\
+    cp.getAttackDamage() << ")";
     return (os);
 }
 
-void            highFiveGuys(void)
+void            FragTrap::highFiveGuys(void)
 {
-    std::cout << "high five, we won the friendship medal" << std::endl;
+    std::cout << "High five! Pergo and Frago: one for all, all for one" << std::endl;
 }
