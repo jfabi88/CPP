@@ -24,6 +24,11 @@ int main(void)
     secondBur.executeForm(*sForm);
     fourthBur.executeForm(*pForm);
     fourthBur.signForm(*pForm);
+    thirdBur.signForm(*rForm);
+    thirdBur.executeForm(*rForm);
     fourthBur.executeForm(*pForm);
+    delete(pForm);
+    delete(rForm);
+    delete(sForm);
     return (0);
 }

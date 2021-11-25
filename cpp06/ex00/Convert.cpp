@@ -1,37 +1,63 @@
 #include "Convert.hpp"
 
-Convert::Convert(std::string strToConvert)
+/**UTILS**/
+int ftIsZero(const char * str)
+{
+    int i = 0;
+    int j = 0;
+
+    if (!str)
+        return (0);
+    while (str[i] == ' ')
+        i++;
+    while (str[i] == '0')
+    {
+        i++;
+        j++;
+    }
+    if (str[i] == '.')
+        i++;
+    while (str[i] == '0')
+    {
+        i++;
+        j++;
+    }
+    if (j != 0)
+        return (1);
+    return (0);
+}
+
+Convert::Convert(const char* strToConvert)
 {
     this->setDouble(strToConvert);
     strToReturn = "";
+    std::cout << "Convert created" << std::endl;
 }
 
-void    Convert::setDouble(std::string strToConvert)
+Convert::~Convert()
 {
-    size_t indx;
+    std::cout << "Convert deleted" << std::endl;
+}
 
-    if (strToConvert.length() == 1)
+void    Convert::setDouble(const char* strToConvert)
+{
+    if (strToConvert && strToConvert[0] && strToConvert[1] == 0)
     {
-        this->ret = static_cast<double>(strToConvert[0]);
-        flag = 2;
+        this->ret = static_cast<double>(strToConvert[0] - 48);
+        if (this->ret >= 0 && this->ret <= 9)
+            flag = 0;
+        else
+            flag = 2;
     }
     else
     {
-        try
-        {
-            this->ret = std::stod(strToConvert, &indx);
-            if (std::isnan(this->ret) || std::isinf(this->ret))
-                flag = 3;
-            else if (strToConvert[indx] == 0)
-                flag = 0;
-            else
-                flag = 1;
-        }
-        catch(const std::exception& e)
-        {
-            this->ret = 0;
+        this->ret = atof(strToConvert);
+        if (!this->ret && !ftIsZero(strToConvert))
             flag = 1;
-        }
+        else if (std::isnan(this->ret) || std::isinf(this->ret))
+            flag = 3;
+        else
+            flag = 0;
     }
 }
 
@@ -47,9 +73,9 @@ std::string Convert::getString()
 
 int Convert::toChar()
 {
-    if (this->flag == 1 || this->flag == 3)
+    if (this->ret > 127 || this->flag == 1 || this->flag == 3 || this->ret < 0)
         this->strToReturn = "Impossible";
-    else if (this->ret == 127 || ( this->ret < 32 && this->ret >= 0))
+    else if (this->ret == 127 || this->ret < 32)
         this->strToReturn = "Non Displayable";
     else if (this->flag == 2)
         return (0);
@@ -60,7 +86,9 @@ int Convert::toChar()
 
 int Convert::toInt()
 {
-    if (this->flag == 0)
+    if (this->ret < -2147483648 || this->ret > 2147483647)
+        this->strToReturn = "Impossible";
+    else if (this->flag == 0)
         return (0);
     else
         this->strToReturn = "Impossible";

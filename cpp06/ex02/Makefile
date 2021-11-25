@@ -9,7 +9,7 @@ CPP			=	clang++
 %.o:		%.cpp 
 			$(CPP) $(CFLAGS)   -c $< -o $(<:.cpp=.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -std=c++11
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98
 
 RM			=	rm -f
 

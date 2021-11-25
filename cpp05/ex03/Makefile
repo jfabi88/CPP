@@ -1,7 +1,12 @@
-NAME		=	convert
+NAME		=	bureaucrat
 
-SRCS		=	Convert.cpp \
-				main.cpp 
+SRCS		=	Bureaucrat.cpp \
+				Form.cpp \
+				main.cpp \
+				PresidentialPardonForm.cpp \
+				RobotomyRequestForm.cpp \
+				ShrubberyCreationForm.cpp \
+				Intern.cpp
 	
 OBJS		=	$(SRCS:.cpp=.o)
 

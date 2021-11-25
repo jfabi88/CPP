@@ -17,13 +17,14 @@ int main()
     int n = 9;
     int array[n];
     std::string arrayStr[n];
+    std::string mucca = "Mucca numero: ";
 
     for (int i = 0; i < n; i++)
         array[i] = i * 2;
     std::cout << "----INT----"<< std::endl;
     iter(array, n, firstFunction<int>);
     for (int i = 0; i < n; i++)
-        arrayStr[i] = "Mucca numero: " + std::to_string(i * 2);
+        arrayStr[i] = mucca + (char)(i + 48);
     std::cout << "----STRINGS----"<< std::endl;
     iter(arrayStr, n, firstFunction<std::string>);
     return 0;

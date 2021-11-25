@@ -19,9 +19,9 @@ template <class T>
 class Array
 {
     public:
-        Array(){content = {}; len = 0;};
+        Array(){content(0); len = 0;};
         Array(unsigned int n){content = new T[n]; len = n;};
-        ~Array() { delete (content); };
+        ~Array() { delete[] (content); };
         Array<T>(const Array<T> &copy)
         {
             content = new T[copy.size()];
@@ -38,13 +38,13 @@ class Array
             len = copy.size();
             return (content);
         };
-        T &operator[](unsigned int indx)
+        T &operator[] (unsigned int indx) const
         {
             if (indx < 0 || indx >= len)
                 throw OutOfIndexException();
             return (content[indx]);
         };
-        unsigned int size(){ return len;};
+        unsigned int size() const { return len;};
     private:
         T *content;
         unsigned int len;

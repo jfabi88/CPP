@@ -14,7 +14,10 @@ Bureaucrat::Bureaucrat(const Bureaucrat &copy)
     this->grade = copy.getGrade();
 }
 
-Bureaucrat::~Bureaucrat(){}
+Bureaucrat::~Bureaucrat()
+{
+    std::cout << "A bureaucrat deleted" << std::endl;
+}
 
 int         Bureaucrat::getGrade() const
 {
@@ -43,11 +46,13 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& cp)
     return (os);
 }
 
-Bureaucrat  Bureaucrat::operator=(const Bureaucrat &copy)
+Bureaucrat&  Bureaucrat::operator=(const Bureaucrat &copy)
 {
-    Bureaucrat ret(copy);
-
-    return (ret);
+    if (this == &copy)
+        return (*this);
+    this->name = copy.getName();
+    this->grade = copy.getGrade();
+    return (*this);
 }
 
 bool        Bureaucrat::operator==(const Bureaucrat &second) const

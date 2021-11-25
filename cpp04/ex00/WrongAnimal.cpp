@@ -33,9 +33,10 @@ std::string WrongAnimal::getType() const
 
 WrongAnimal  WrongAnimal::operator=(const WrongAnimal &copy)
 {
-    WrongAnimal  ret(copy.getType());
-
-    return (ret);
+    if (this == &copy)
+        return (*this);
+    this->type = copy.getType();
+    return (*this);
 }
 
 std::ostream& operator<<(std::ostream& os, const WrongAnimal& cp)

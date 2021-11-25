@@ -16,7 +16,7 @@ class Bureaucrat
         void        inGrade(int num);
 
         friend std::ostream&    operator<<(std::ostream& os, const Bureaucrat& cp);
-        Bureaucrat              operator=(const Bureaucrat &copy);
+        Bureaucrat&             operator=(const Bureaucrat &copy);
         bool                    operator==(const Bureaucrat &second) const;
     private:
         std::string name;

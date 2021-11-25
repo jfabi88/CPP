@@ -10,8 +10,9 @@ class Brain
         ~Brain();
 
         void    setIdea(int index, std::string idea);
-        std::string getIdea(int index);
-        Brain   operator=(const Brain &copy);
+        int     getSize() const;
+        std::string getIdea(int index) const;
+        Brain&   operator=(const Brain &copy);
         friend std::ostream& operator<<(std::ostream& os, const Brain& cp);
     private:
         std::string ideas[100];

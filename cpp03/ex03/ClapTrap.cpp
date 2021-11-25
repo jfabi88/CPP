@@ -44,7 +44,7 @@ ClapTrap::~ClapTrap()
 
 void    ClapTrap::attack(std::string const & target)
 {
-    std::cout << this->getName() << " attack " \
+    std::cout << this->Name << " attack " \
     << target << ", causing " << this->getAttackDamage()\
     << " points of damage!" <<std::endl;
 }

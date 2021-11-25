@@ -16,7 +16,10 @@ Form::Form(const Form &cp) : name(cp.name), gradeSign(cp.gradeSign), gradeExec(c
     this->sign = false;
 }
 
-Form::~Form(){}
+Form::~Form()
+{
+    std::cout << "A form burned" << std::endl;
+}
 
 void    Form::beSigned(const Bureaucrat bu)
 {
@@ -36,13 +39,6 @@ std::ostream&    operator<<(std::ostream& os, const Form& cp)
     << cp.sign;
 
     return (os);
-}
-
-Form Form::operator=(const Form &copy)
-{
-    Form    ret(copy);
-
-    return (ret);
 }
 
 /**PRIVATE**/

@@ -10,7 +10,6 @@ int main()
 
     std::cout << cat->getType() << std::endl;
     std::cout << dog->getType() << std::endl;
-    std::cout << meta->getType() << std::endl;
 
     std::cout << "The sound: \nCat";
     std::cout << "Dog: ";
@@ -22,7 +21,6 @@ int main()
     std::cout << *cat << " and " << *dog << " are the same animal: "\
     << std::boolalpha << (*cat == *dog) << std::endl;
 
-    delete(meta);
     delete(cat);
     delete(dog);
     delete(secondCat);

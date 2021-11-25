@@ -10,6 +10,25 @@ Dog::Dog()
     std::cout << "Hi dog!" << std::endl;
 }
 
+void    Dog::setIdea(int indx, std::string idea)
+{
+    this->brain->setIdea(indx, idea);
+}
+
+Brain&  Dog::getBrain() const
+{
+    return(*this->brain);
+}
+
+Dog&  Dog::operator=(const Dog &copy)
+{
+    if (this == &copy)
+        return *this;
+    delete(this->brain);
+    this->brain = new Brain(copy.getBrain());
+    return (*this);
+}
+
 Dog::~Dog()
 {
     delete(this->brain);

@@ -17,7 +17,6 @@ class Form
         std::string getName();
 
         friend std::ostream&    operator<<(std::ostream& os, const Form& cp);
-        Form                    operator=(const Form &copy);
         bool                    operator==(const Form &second) const;
     private:
         bool                sign;

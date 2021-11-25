@@ -12,5 +12,6 @@ int main(void)
     std::cout << *form << std::endl;
     secondBur.signForm(*form);
     std::cout << *form << std::endl;
+    delete(form);
     return (0);
 }

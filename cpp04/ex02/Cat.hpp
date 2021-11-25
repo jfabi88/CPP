@@ -10,6 +10,10 @@ class Cat : public Animal
         Cat();
         virtual ~Cat();
         virtual void    makeSound() const;
+
+        void    setIdea(int indx, std::string idea);
+        Brain&  getBrain() const;
+        Cat&    operator=(Cat &copy);
     private:
         Brain   *brain;
 };

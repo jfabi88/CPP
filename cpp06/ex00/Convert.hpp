@@ -8,9 +8,9 @@
 class Convert
 {
     public:
-        Convert(std::string stringToConvert);
-
-        void        setDouble(std::string);
+        Convert(const char* stringToConvert);
+        ~Convert();
+        void        setDouble(const char *str);
         double      getDouble();
         std::string getString();
 

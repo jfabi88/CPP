@@ -1,11 +1,11 @@
 #include "Ice.hpp"
 
-Ice::Ice()
+Ice::Ice() : AMateria("ice")
 {
     this->type = "ice";
 }
 
-Ice::Ice(Ice const &copy)
+Ice::Ice(Ice const &copy) : AMateria("ice")
 {
     this->type = copy.getType();
 }

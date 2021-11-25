@@ -8,11 +8,11 @@ class Character : public ICharacter
     public:
         Character(std::string name);
         Character(Character &copy);
-        virtual ~Character() {}
+        virtual ~Character();
 
         virtual std::string const & getName() const;
         unsigned int    getSize() const;
-        AMateria        *getAMateria(unsigned int indx);
+        AMateria        *getAMateria(unsigned int indx) const;
 
         virtual void    equip(AMateria* m);
         virtual void    unequip(int idx);

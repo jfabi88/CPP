@@ -3,13 +3,11 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[])
-{   
-    std::string str;
+{
 
     if (argc != 2)
         return (0);
-    str = ((std::string)(argv[1]));
-    Convert *conv = new Convert(str);
+    Convert *conv = new Convert(argv[1]);
     if (!conv->toChar())
         std::cout << static_cast<char>(conv->getDouble()) << std::endl;
     else
@@ -26,4 +24,5 @@ int main(int argc, char *argv[])
         std::cout << static_cast<float>(conv->getDouble()) << std::endl;
     else
         std::cout << conv->getString() << std::endl;
+    delete (conv);
 }

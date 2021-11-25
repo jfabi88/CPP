@@ -1,6 +1,10 @@
 #include "AMateria.hpp"
 #include <iostream>
 
+AMateria::AMateria()
+{
+}
+
 AMateria::AMateria(std::string const & type)
 {
     this->type = type;
@@ -32,8 +36,9 @@ void AMateria::use(ICharacter& target)
 
 AMateria  &AMateria::operator=(const AMateria &copy)
 {
+    if (this == &copy)
+        return (*this);
     this->type = copy.getType();
-
     return (*this);
 }
 

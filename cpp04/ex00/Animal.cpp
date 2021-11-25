@@ -31,16 +31,17 @@ std::string Animal::getType() const
     return (this->type);
 }
 
-Animal  Animal::operator=(const Animal &copy)
+Animal&  Animal::operator=(const Animal &copy)
 {
-    Animal  ret(copy.getType());
-
-    return (ret);
+    if (this == &copy)
+        return (*this);
+    this->type = copy.getType();
+    return (*this);
 }
 
 std::ostream& operator<<(std::ostream& os, const Animal& cp)
 {
-    os << "type: " << cp.getType();
+    os << cp.getType();
     return (os);
 }
 

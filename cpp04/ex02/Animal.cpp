@@ -1,30 +1,45 @@
 #include "Animal.hpp"
 #include <iostream>
 
-/**PUBLIC**/
+/**PROTECTED**/
 
 Animal::Animal()
 {
     this->type = "Non defined";
+    std::cout << "Mmh it's so good to eat" << std::endl;
 }
 
 Animal::Animal(std::string newType)
 {
     this->type = newType;
+    std::cout << "Mmh it's so good to eat" << std::endl;
 }
 
 Animal::Animal(Animal &copy)
 {
     this->type = copy.getType();
+    std::cout << "Mmh it's so good to eat" << std::endl;
 }
+
+/**PUBLIC**/
 
 Animal::~Animal()
 {
+    std::cout << "I'm full" << std::endl;
 }
 
 std::string Animal::getType() const
 {
     return (this->type);
+}
+
+Animal&  Animal::operator=(const Animal &copy)
+{
+    std::cout << "Salame"<<std::endl;
+    if (this == &copy)
+        return (*this);
+    this->type = copy.getType();
+    return (*this);
 }
 
 std::ostream& operator<<(std::ostream& os, const Animal& cp)

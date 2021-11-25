@@ -7,6 +7,8 @@ MateriaSource::MateriaSource()
 
 MateriaSource::MateriaSource(const MateriaSource& copy)
 {
+    for (int i = 0; i < this->size; i++)
+        delete(this->bag[i]);  
     this->size = copy.size;
     for (int i = 0; i < copy.size; i++)
         this->bag[i] = copy.bag[i];
@@ -20,9 +22,13 @@ MateriaSource::~MateriaSource()
 
 MateriaSource&  MateriaSource::operator=(const MateriaSource& op)
 {
-    MateriaSource *ret = new MateriaSource(op);
-
-    return (ret);
+    if (this == &op)
+        return (*this);
+    for (int i = 0; i < this->size; i++)
+        delete(this->bag[i]);
+    for (int i= 0; i < op.size; i++)
+        this->bag[i] = op.bag[i];
+    return (*this);
 }
 
 void            MateriaSource::learnMateria(AMateria* m)
@@ -35,6 +41,7 @@ void            MateriaSource::learnMateria(AMateria* m)
             return ;
     }
     this->bag[this->size] = m;
+    this->size = size + 1;
 }
 
 AMateria*       MateriaSource::createMateria(std::string const & type)
@@ -42,5 +49,5 @@ AMateria*       MateriaSource::createMateria(std::string const & type)
     for (int i = 0; i < this->size; i++)
 		if (this->bag[i]->getType() == type)
 			return (this->bag[i]->clone());
-	return (nullptr);
+	return (0);
 }
