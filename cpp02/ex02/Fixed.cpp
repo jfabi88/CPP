@@ -458,11 +458,12 @@ Fixed Fixed::operator/(const float second) const
 
 Fixed Fixed::operator++(int)
 {
+    Fixed ret = *this;
     this->value = this->value + 1;
-    return (*this);
+    return (ret);
 }
 
-Fixed Fixed::operator++()
+Fixed &Fixed::operator++()
 {
     this->value = this->value + 1;
     return (*this);
@@ -470,11 +471,12 @@ Fixed Fixed::operator++()
 
 Fixed Fixed::operator--(int)
 {
+    Fixed ret = *this;
     this->value = this->value - 1;
-    return (*this);
+    return (ret);
 }
 
-Fixed Fixed::operator--()
+Fixed &Fixed::operator--()
 {
     this->value = this->value - 1;
     return (*this);

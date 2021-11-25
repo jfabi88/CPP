@@ -1,3 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 18:32:25 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/25 18:32:27 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
+
 #include <iostream>
 
 class ClapTrap
@@ -9,8 +24,7 @@ class ClapTrap
         ClapTrap(const ClapTrap &copy);
         ~ClapTrap();
         
-        ClapTrap operator = (const ClapTrap &copy);
-        friend std::ostream& operator<<(std::ostream& os, const ClapTrap& cp);
+        ClapTrap& operator = (const ClapTrap &copy);
 
         void    attack(std::string const & target);
         void    takeDamage(unsigned int amount);
@@ -25,8 +39,8 @@ class ClapTrap
         unsigned int    EnergyPoints;
         unsigned int    AttackDamage;
         std::string     Name;
-    private:
-        void            setHitPoint(int num);
-        void            setEnergyPoints(int num);
-        void            setAttackDamage(int num);
 };
+
+std::ostream& operator<<(std::ostream& os, const ClapTrap& cp);
+
+#endif

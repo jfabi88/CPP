@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FIXED_HPP
+#define FIXED_HPP
+
 #include <iostream>
 
 class Fixed
@@ -28,8 +31,11 @@ class Fixed
         int toInt(void) const;
 
         Fixed &operator=(const Fixed &fix);
-        friend std::ostream& operator<<(std::ostream& os, const Fixed& dt);
     private:
         int value;
         static const int decimal = 8;
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed& dt);
+
+#endif

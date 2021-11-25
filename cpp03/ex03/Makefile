@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jfabi <marvin@42.fr>                       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/11/25 18:35:08 by jfabi             #+#    #+#              #
+#    Updated: 2021/11/25 18:35:09 by jfabi            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		=	DiamondTrap
 
 SRCS		=	ClapTrap.cpp \
@@ -13,7 +25,7 @@ CPP			=	clang++
 %.o:		%.cpp 
 			$(CPP) $(CFLAGS)   -c $< -o $(<:.cpp=.o)
 
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98
+CFLAGS		=	-Wshadow -Wno-shadow -Wall -Wextra -Werror -std=c++98
 
 RM			=	rm -f
 

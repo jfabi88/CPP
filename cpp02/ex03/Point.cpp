@@ -43,6 +43,15 @@ Point Point::operator-(const Point second) const
 
 std::ostream& operator<<(std::ostream& os, const Point& dt)
 {
-    os << "(" << dt.x << "," << dt.y << ")";
+    os << "(" << dt.getFixedX() << "," << dt.getFixedY() << ")";
     return (os);
+}
+
+Point& Point::operator=(const Point &fix)
+{
+    if (this == &fix)
+        return (*this);
+    this->x = fix.getFixedX();
+    this->y = fix.getFixedY();
+    return (*this);
 }

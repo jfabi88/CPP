@@ -27,13 +27,12 @@ class Point
         Fixed   getFixedY() const;
 
         Point operator-(const Point second) const;
-
-        friend std::ostream& operator<<(std::ostream& os, const Point& dt);
-        //Point &operator=(const Point &fix);
+        Point &operator=(const Point &fix);
     private:
-        const Fixed x;
-        const Fixed y;
-
+        Fixed x;
+        Fixed y;
 };
+
+std::ostream& operator<<(std::ostream& os, const Point& dt);
 
 #endif

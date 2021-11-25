@@ -98,6 +98,7 @@ Fixed::Fixed(int integer)
         value = value << 1;
         i++;
     }
+    std::cout << "Integer constructor called" << std::endl;
 }
 
 Fixed::Fixed(float num)
@@ -116,6 +117,7 @@ Fixed::Fixed(float num)
     this->value = ((integer << 8) + decimal);
     if (sign)
         this->value = this->value * -1;
+    std::cout << "Float constructor called" << std::endl;
 }
 
 int Fixed::toInt(void) const
@@ -176,6 +178,7 @@ Fixed::~Fixed()
 
 Fixed::Fixed(const Fixed &f)
 {
+    std::cout << "Referece constructor called" << std::endl;
     this->value = f.value;
 }
 

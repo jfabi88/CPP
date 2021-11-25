@@ -1,21 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 18:29:20 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/25 18:29:22 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ClapTrap.hpp"
 #include <iostream>
 
 ClapTrap::ClapTrap(std::string name)
 {
     this->Name = name;
-    this->setAttackDamage(0);
-    this->setEnergyPoints(10);
-    this->setHitPoint(10);
+    this->AttackDamage = 0;
+    this->EnergyPoints = 10;
+    this->HitPoint = 10;
     std::cout << "Hi Clapo" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &copy)
 {
     this->Name = copy.getName();
-    this->setAttackDamage(copy.getAttackDamage());
-    this->setEnergyPoints(copy.getEnergyPoints());
-    this->setHitPoint(copy.getHitPoint());
+    this->Name = copy.getAttackDamage();
+    this->EnergyPoints = copy.getEnergyPoints();
+    this->HitPoint = copy.getHitPoint();
     std::cout << "Hi Clapo" << std::endl;
 }
 
@@ -25,17 +37,22 @@ ClapTrap::~ClapTrap()
 }
 
         
-ClapTrap ClapTrap::operator=(const ClapTrap &copy)
+ClapTrap& ClapTrap::operator=(const ClapTrap &copy)
 {
-    ClapTrap    ret(copy);
-
-    return (ret);
+    if (this == &copy)
+        return (*this);
+    this->Name = copy.getName();
+    this->AttackDamage = copy.getAttackDamage();
+    this->EnergyPoints = copy.getEnergyPoints();
+    this->HitPoint = copy.getHitPoint();
+    std::cout << "Hi Clapo" << std::endl;
+    return (*this);
 }
     
 void    ClapTrap::attack(std::string const & target)
 {
-    std::cout << this->getName() << " attack " \
-    << target << ", causing " << this->getAttackDamage()\
+    std::cout << "Clapo " << this->Name << " attack " \
+    << target << ", causing " << this->AttackDamage\
     << " points of damage!" <<std::endl;
 }
 
@@ -43,16 +60,26 @@ void    ClapTrap::takeDamage(unsigned int amount)
 {
     int newValue;
 
-    newValue = this->getHitPoint() - amount;
-    if (newValue < 0)
-        this->setHitPoint(0);
+    if (amount > 999)
+        this->HitPoint = 0;
     else
-        this->setHitPoint(newValue);
+    {
+        newValue = this->HitPoint - amount;
+        if (newValue < 0)
+            this->HitPoint = 0;
+        else
+            this->HitPoint = newValue;
+    }
+    std::cout << "Clapo " << this->getName() << " take " << amount << " damage" << std::endl;
 }
 
 void    ClapTrap::beRepaired(unsigned int amount)
 {
-    this->setHitPoint(this->getHitPoint() + amount);
+    if (amount > 999 || this->HitPoint + amount > 999)
+        this->HitPoint = 999;
+    else
+        this->HitPoint = this->HitPoint + amount;
+    std::cout << "Clapo " << this->getName() << " heals " << amount << " hitpoints" << std::endl;
 }
 
 unsigned int    ClapTrap::getHitPoint() const
@@ -64,32 +91,20 @@ unsigned int    ClapTrap::getEnergyPoints() const
 {
     return (this->EnergyPoints);
 }
+
 unsigned int    ClapTrap::getAttackDamage() const
 {
     return (this->AttackDamage);
 }
+
 std::string     ClapTrap::getName() const
 {
     return (this->Name);
 }
-void            ClapTrap::setHitPoint(int num)
-{
-    this->HitPoint = num;
-}
-
-void            ClapTrap::setEnergyPoints(int num)
-{
-    this->EnergyPoints = num;
-}
-
-void            ClapTrap::setAttackDamage(int num)
-{
-    this->AttackDamage = num;
-}
 
 std::ostream& operator<<(std::ostream& os, const ClapTrap& cp)
 {
-    os << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
+    os << "Clapo " << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
     << "; energy: " << cp.getEnergyPoints() << "; damage: " <<\
     cp.getAttackDamage() << ")";
     return (os);

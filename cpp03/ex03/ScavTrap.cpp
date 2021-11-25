@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ScavTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/25 18:35:55 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/25 18:35:57 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ScavTrap.hpp"
 
 /**PUBLIC**/
 
-ScavTrap::ScavTrap()
+ScavTrap::ScavTrap() : ClapTrap()
 {
     this->Name = "";
     this->HitPoint = 100;
@@ -33,22 +45,34 @@ ScavTrap::~ScavTrap()
     std::cout << "I love you Scavo..." << std::endl;
 }
 
-ScavTrap ScavTrap::operator=(const ScavTrap &copy)
+ScavTrap& ScavTrap::operator=(const ScavTrap &copy)
 {
-    ScavTrap    ret(copy);
-
-    return (ret);
-}
-
-std::ostream& operator<<(std::ostream& os, const ScavTrap& cp)
-{
-    os << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
-    << "; energy: " << cp.getEnergyPoints() << "; damage: " <<\
-    cp.getAttackDamage() << ")";
-    return (os);
+    if (this == &copy)
+        return (*this);
+    this->Name = copy.getName();
+    this->AttackDamage = copy.getAttackDamage();
+    this->EnergyPoints = copy.getEnergyPoints();
+    this->HitPoint = copy.getHitPoint();
+    std::cout << "Hi Clapo" << std::endl;
+    return (*this);
 }
 
 void            ScavTrap::guardGate(void)
 {
-    std::cout << this->getName() << " have entered in Gate keeper mode" << std::endl;
+    std::cout << "Scavo " << this->getName() << " have entered in Gate keeper mode" << std::endl;
+}
+
+void ScavTrap::attack(std::string const & target)
+{
+    std::cout << "Scavo " << this->Name << " attack " \
+    << target << ", causing " << this->AttackDamage\
+    << " points of damage!" <<std::endl;    
+}
+
+std::ostream& operator<<(std::ostream& os, const ScavTrap& cp)
+{
+    os << "Scavo " << cp.getName() << " (hitpoint: " << cp.getHitPoint()\
+    << "; energy: " << cp.getEnergyPoints() << "; damage: " <<\
+    cp.getAttackDamage() << ")";
+    return (os);   
 }

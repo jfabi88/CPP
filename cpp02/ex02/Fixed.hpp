@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FIXED_HPP
+#define FIXED_HPP
+
 #include <iostream>
 #include <iomanip>
 
@@ -67,12 +70,16 @@ class Fixed
         Fixed operator/(const float second) const;
 
         Fixed operator++(int);
-        Fixed operator++();
+        Fixed &operator++();
         Fixed operator--(int);
-        Fixed operator--();
-        friend std::ostream& operator<<(std::ostream& os, const Fixed& dt);
+        Fixed &operator--();
+
         Fixed &operator=(const Fixed &fix);
     private:
         int value;
         static const int decimal = 8;
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed& dt);
+
+#endif
