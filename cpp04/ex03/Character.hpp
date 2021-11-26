@@ -23,15 +23,12 @@ class Character : public ICharacter
         virtual ~Character();
 
         virtual std::string const & getName() const;
-        unsigned int    getSize() const;
-        AMateria        *getAMateria(unsigned int indx) const;
 
         virtual void    equip(AMateria* m);
         virtual void    unequip(int idx);
         virtual void    use(int idx, ICharacter& target);
     private:
         std::string     name;
-        unsigned int    size;
         AMateria        *bag[4];
 };
 
