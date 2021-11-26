@@ -23,8 +23,8 @@ class ScavTrap: public ClapTrap
         ~ScavTrap();
 
         ScavTrap &operator = (const ScavTrap &copy);
-
-        void            guardGate(void);
+        void    attack(std::string const & target);
+        void    guardGate(void);
 };
 
 std::ostream& operator<<(std::ostream& os, const ScavTrap& cp);

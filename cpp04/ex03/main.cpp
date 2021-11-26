@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:28:01 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/26 14:28:02 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "AMateria.hpp"
 #include "Character.hpp"
 #include "Cure.hpp"
@@ -17,6 +29,15 @@ int main()
 	me->equip(tmp);
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	//me->unequip(6);
+	//me->unequip(1);
+	//me->unequip(0);
+	//me->unequip(0);
+	//me->unequip(0);
 	ICharacter* bob = new Character("Tifa");
 	std::cout << me->getName() << std::endl;
 	me->use(0, *bob);

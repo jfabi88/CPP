@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:22:12 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/26 14:22:13 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Cat.hpp"
 #include "Animal.hpp"
 
@@ -7,6 +19,14 @@ Cat::Cat()
 {
     this->type = "Cat";
     this->brain = new Brain();
+    std::cout << "Hi cat!" << std::endl;
+}
+
+Cat::Cat(const Cat &cat)
+{
+    this->type = cat.getType();
+    delete(this->brain);
+    this->brain = new Brain(cat.getBrain());
     std::cout << "Hi cat!" << std::endl;
 }
 
@@ -32,6 +52,7 @@ Cat&  Cat::operator=(Cat &copy)
         return *this;
     delete(this->brain);
     this->brain = new Brain(copy.getBrain());
+    std::cout << "Hi cat!" << std::endl;
     return (*this);
 }
 

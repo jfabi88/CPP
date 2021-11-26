@@ -1,8 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Brain.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:21:59 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/26 14:22:00 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Brain.hpp"
 
 Brain::Brain()
 {
     std::cout <<  "head start thinking" << std::endl;
+}
+
+Brain::Brain(const Brain &copy)
+{
+    for (int i = 0; i < copy.getSize(); i++)
+        this->ideas[i] = copy.getIdea(i);
+    std::cout <<  "head start thinking" << std::endl;    
 }
 
 Brain::~Brain()
@@ -41,6 +60,6 @@ Brain&  Brain::operator=(const Brain &copy)
 std::ostream& operator<<(std::ostream& os, const Brain& cp)
 {
     for (int i = 0; i < cp.getSize(); i++)
-        os << cp.ideas[i] << "\n";
+        os << cp.getIdea(i) << "\n";
     return (os);
 }

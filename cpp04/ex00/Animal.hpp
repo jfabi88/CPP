@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:15:15 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/26 14:15:17 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ANIMAL_HPP
 # define ANIMAL_HPP
 
@@ -14,11 +26,12 @@ class Animal
         std::string getType() const;
 
         Animal&  operator=(const Animal &copy);
-        friend std::ostream& operator<<(std::ostream& os, const Animal& cp);
         bool    operator==(const Animal &second) const;
         virtual void    makeSound() const;
     protected:
         std::string type;
 };
+
+std::ostream& operator<<(std::ostream& os, const Animal& cp);
 
 #endif

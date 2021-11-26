@@ -18,8 +18,8 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name)
 {
     this->Name = name;
     this->HitPoint = 100;
-    this->EnergyPoints = 50;
-    this->AttackDamage = 20;
+    this->EnergyPoints = 100;
+    this->AttackDamage = 30;
     std::cout << "Hi Frago" << std::endl;
 }
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/26 14:22:33 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/26 14:22:35 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Dog.hpp"
 #include "Animal.hpp"
 
@@ -26,7 +38,16 @@ Dog&  Dog::operator=(const Dog &copy)
         return *this;
     delete(this->brain);
     this->brain = new Brain(copy.getBrain());
+    std::cout << "Hi dog!" << std::endl;
     return (*this);
+}
+
+Dog::Dog(const Dog &copy)
+{
+    this->type = copy.getType();
+    delete(this->brain);
+    this->brain = new Brain(copy.getBrain());
+    std::cout << "Hi dog!" << std::endl;
 }
 
 Dog::~Dog()
