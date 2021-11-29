@@ -2,11 +2,18 @@
 
 /**PUBLIC**/
 
+Form::Form() : name("Default"), gradeSign(150), gradeExec(150)
+{
+    this->sign = false;
+    std::cout << "Form created" << std::endl;
+}
+
 Form::Form(const std::string name, const int gradeSign, const int gradeExec) : name(name), gradeSign(gradeSign), gradeExec(gradeExec)
 {
     this->valueGrade(gradeSign);
     this->valueGrade(gradeExec);
     this->sign = false;
+    std::cout << "Form created" << std::endl;
 }
 
 Form::Form(const Form &cp) : name(cp.name), gradeSign(cp.gradeSign), gradeExec(cp.gradeExec)
@@ -14,6 +21,15 @@ Form::Form(const Form &cp) : name(cp.name), gradeSign(cp.gradeSign), gradeExec(c
     this->valueGrade(gradeSign);
     this->valueGrade(gradeExec);
     this->sign = false;
+    std::cout << "Form created" << std::endl;
+}
+
+Form& Form::operator=(const Form &copy)
+{
+    if (this == &copy)
+        return (*this);
+    this->sign = copy.getSign();
+    return (*this);
 }
 
 Form::~Form()
@@ -21,22 +37,37 @@ Form::~Form()
     std::cout << "A form burned" << std::endl;
 }
 
-void    Form::beSigned(const Bureaucrat bu)
+void    Form::beSigned(const Bureaucrat &bu)
 {
     valueGrade(gradeSign, bu.getGrade());
     this->sign = true;
 }
 
-std::string Form::getName()
+std::string Form::getName() const
 {
     return (this->name);
 }
 
+int Form::getGradeExec() const
+{
+    return (this->gradeExec);
+}
+
+int Form::getGradeSign() const
+{
+    return (this->gradeSign);
+}
+
+bool Form::getSign() const
+{
+    return (this->sign);
+}
+
 std::ostream&    operator<<(std::ostream& os, const Form& cp)
 {
-    os << "name: " << cp.name << ", grade to sign it: " << cp.gradeSign\
-    << ", grade to execute: " << cp.gradeExec << ", signed: " << std::boolalpha\
-    << cp.sign;
+    os << "name: " << cp.getName() << ", grade to sign it: " << cp.getGradeSign()\
+    << ", grade to execute: " << cp.getGradeExec() << ", signed: " << std::boolalpha\
+    << cp.getSign();
 
     return (os);
 }
@@ -57,7 +88,7 @@ void        Form::valueGrade(int num)
 {
     if (num > 150)
         throw Form::GradeTooLowException();
-    else if (num < 0)
+    else if (num <= 0)
         throw Form::GradeTooHighException();
 }
 
@@ -66,4 +97,3 @@ void        Form::valueGrade(int gradeIn, int gradeB)
     if (gradeIn < gradeB)
         throw Form::GradeTooLowException();
 }
-

@@ -7,14 +7,19 @@
 RobotomyRequestForm::RobotomyRequestForm(const std::string name, const std::string target) : Form(name, 72, 45)
 {
     this->target = target;
+    std::cout << "RobotomyRequestForm created" << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &cp) : Form(cp.getName(), cp.getGradeSign(), cp.getGradeExec())
 {
     this->target = cp.getTarget();
+    std::cout << "RobotomyRequestForm created" << std::endl;
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::~RobotomyRequestForm()
+{
+    std::cout << "RobotomyRequestForm deleted" << std::endl;
+}
 
 std::string RobotomyRequestForm::getTarget() const
 {

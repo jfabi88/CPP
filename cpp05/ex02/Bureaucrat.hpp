@@ -9,6 +9,7 @@ class Form;
 class Bureaucrat
 {
     public:
+        Bureaucrat();
         Bureaucrat(std::string name, int num);
         Bureaucrat(const Bureaucrat &copy);
         ~Bureaucrat();
@@ -20,7 +21,6 @@ class Bureaucrat
         void        signForm(Form &form);
         void        executeForm(Form const & form);
 
-        friend std::ostream&    operator<<(std::ostream& os, const Bureaucrat& cp);
         Bureaucrat&             operator=(const Bureaucrat &copy);
         bool                    operator==(const Bureaucrat &second) const;
     private:
@@ -40,5 +40,7 @@ class Bureaucrat
                 const char* what() const throw();
         };
 };
+
+std::ostream&    operator<<(std::ostream& os, const Bureaucrat& cp);
 
 #endif

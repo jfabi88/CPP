@@ -9,15 +9,19 @@ class Bureaucrat;
 class Form
 {
     public:
+        Form();
         Form(const std::string name, const int gradeSign, const int gradeExec);
         Form(const Form &cp);
         ~Form();
 
-        void        beSigned(const Bureaucrat bu);
-        std::string getName();
+        void        beSigned(const Bureaucrat& bu);
+        std::string getName() const;
+        int         getGradeExec() const;
+        int         getGradeSign() const;
+        bool        getSign() const;
 
-        friend std::ostream&    operator<<(std::ostream& os, const Form& cp);
-        bool                    operator==(const Form &second) const;
+        bool        operator==(const Form &second) const;
+        Form&       operator=(const Form &copy);
     private:
         bool                sign;
         const std::string   name;
@@ -36,5 +40,7 @@ class Form
                 const char* what() const throw();
         };
 };
+
+std::ostream&    operator<<(std::ostream& os, const Form& cp);
 
 #endif

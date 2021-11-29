@@ -10,6 +10,8 @@ SRCS		=	Bureaucrat.cpp \
 	
 OBJS		=	$(SRCS:.cpp=.o)
 
+SHRU		= *_shrubbery
+
 CPP			=	clang++
 
 %.o:		%.cpp 
@@ -25,7 +27,7 @@ $(NAME) :	$(OBJS)
 			$(CPP) $(CFLAGS) -o $(NAME) $(OBJS) -I.
 
 clean :		
-			$(RM) $(OBJS)
+			$(RM) $(OBJS) $(SHRU)
 
 fclean 	:	clean
 			$(RM) $(NAME)

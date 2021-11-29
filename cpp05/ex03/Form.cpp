@@ -2,11 +2,18 @@
 
 /**PUBLIC**/
 
+Form::Form() : name("Default"), gradeSign(150), gradeExec(150)
+{
+    this->sign = false;
+    std::cout << "Form created" << std::endl;
+}
+
 Form::Form(const std::string name, const int gradeSign, const int gradeExec) : name(name), gradeSign(gradeSign), gradeExec(gradeExec)
 {
     this->valueGrade(gradeSign);
     this->valueGrade(gradeExec);
     this->sign = false;
+    std::cout << "Form created" << std::endl;
 }
 
 Form::Form(const Form &cp) : name(cp.name), gradeSign(cp.gradeSign), gradeExec(cp.gradeExec)
@@ -14,6 +21,7 @@ Form::Form(const Form &cp) : name(cp.name), gradeSign(cp.gradeSign), gradeExec(c
     this->valueGrade(gradeSign);
     this->valueGrade(gradeExec);
     this->sign = false;
+    std::cout << "Form created" << std::endl;
 }
 
 Form::~Form()
@@ -21,7 +29,7 @@ Form::~Form()
     std::cout << "A form burned" << std::endl;
 }
 
-void    Form::beSigned(const Bureaucrat bu)
+void    Form::beSigned(const Bureaucrat &bu)
 {
     valueGrade(gradeSign, bu.getGrade());
     this->sign = true;
@@ -49,9 +57,9 @@ bool        Form::getSigned() const
 
 std::ostream&    operator<<(std::ostream& os, const Form& cp)
 {
-    os << "name: " << cp.name << ", grade to sign it: " << cp.gradeSign\
-    << ", grade to execute: " << cp.gradeExec << ", signed: " << std::boolalpha\
-    << cp.sign;
+    os << "name: " << cp.getName() << ", grade to sign it: " << cp.getGradeSign()\
+    << ", grade to execute: " << cp.getGradeExec() << ", signed: " << std::boolalpha\
+    << cp.getSigned();
 
     return (os);
 }
@@ -79,7 +87,7 @@ void        Form::valueGrade(int num)
 {
     if (num > 150)
         throw Form::GradeTooLowException();
-    else if (num < 0)
+    else if (num <= 0)
         throw Form::GradeTooHighException();
 }
 
@@ -88,4 +96,3 @@ void        Form::valueGrade(int gradeIn, int gradeB)
     if (gradeIn < gradeB)
         throw Form::GradeTooLowException();
 }
-

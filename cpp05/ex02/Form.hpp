@@ -9,11 +9,12 @@ class Bureaucrat;
 class Form
 {
     public:
+        Form();
         Form(const std::string name, const int gradeSign, const int gradeExec);
         Form(const Form &cp);
         virtual ~Form();
 
-        void            beSigned(const Bureaucrat bu);
+        void            beSigned(const Bureaucrat& bu);
         std::string     getName() const;
         int             getGradeSign() const;
         int             getGradeExec() const;

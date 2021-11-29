@@ -2,16 +2,25 @@
 
 /*PUBLIC*/
 
+Bureaucrat::Bureaucrat()
+{
+    this->name = "";
+    this->grade = 150;
+    std::cout << "A bureaucrat created" << std::endl;
+}
+
 Bureaucrat::Bureaucrat(std::string name, int num)
 {
     this->name = name;
     this->setGrade(num);
+    std::cout << "A bureaucrat created" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &copy)
 {
     this->name = copy.getName();
     this->grade = copy.getGrade();
+    std::cout << "A bureaucrat created" << std::endl;
 }
 
 Bureaucrat::~Bureaucrat()
@@ -104,7 +113,7 @@ void        Bureaucrat::setGrade(int num)
 {
     if (num > 150)
         throw Bureaucrat::GradeTooLowException();
-    else if (num < 0)
+    else if (num <= 0)
         throw Bureaucrat::GradeTooHighException();
     else
         this->grade = num;

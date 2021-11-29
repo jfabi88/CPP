@@ -3,14 +3,19 @@
 PresidentialPardonForm::PresidentialPardonForm(const std::string name, const std::string target) : Form(name, 25, 5)
 {
     this->target = target;
+    std::cout << "PresidentialPardonForm created" << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &cp) : Form(cp.getName(), cp.getGradeSign(), cp.getGradeExec())
 {
     this->target = cp.getTarget();
+    std::cout << "PresidentialPardonForm created" << std::endl;
 }
 
-PresidentialPardonForm::~PresidentialPardonForm() {}
+PresidentialPardonForm::~PresidentialPardonForm()
+{
+    std::cout << "PresidentialPardonForm deleted" << std::endl;
+}
 
 std::string PresidentialPardonForm::getTarget() const
 {

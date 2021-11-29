@@ -6,14 +6,19 @@
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string name, const std::string target) : Form(name, 145, 137)
 {
     this->target = target;
+    std::cout << "ShrubberyForm created" << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &cp) : Form(cp.getName(), cp.getGradeSign(), cp.getGradeExec())
 {
     this->target = cp.getTarget();
+    std::cout << "ShrubberyForm created" << std::endl;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm() {}
+ShrubberyCreationForm::~ShrubberyCreationForm()
+{
+    std::cout << "ShrubberyForm deleted" << std::endl;
+}
 
 std::string ShrubberyCreationForm::getTarget() const
 {
