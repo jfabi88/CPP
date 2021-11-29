@@ -10,6 +10,8 @@ int ftIsZero(const char * str)
         return (0);
     while (str[i] == ' ')
         i++;
+    while (str[i] == '-' || str[i] == '+')
+        i++;
     while (str[i] == '0')
     {
         i++;
