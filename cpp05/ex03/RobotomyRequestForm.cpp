@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/29 13:21:30 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/29 13:21:31 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "RobotomyRequestForm.hpp"
 
-#define RAND_MAX = 1;
 #include <iostream>
 #include <cstdlib>
 
@@ -34,8 +45,8 @@ void RobotomyRequestForm::execute(Bureaucrat const &executer) const
         throw Form::GradeTooLowException();
     std::cout << "DRIN! DRIN! DRIN!" << std::endl;
     srand(time(0));
-    int v1 = rand() % 2;
-    if (v1 == 1)
+    int v1 = rand();
+    if (v1 & 1)
         std::cout << this->target << " has been robotomized" << std::endl;
     else
         std::cout << "It's a failure" << std::endl;
