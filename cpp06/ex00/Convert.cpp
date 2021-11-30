@@ -6,7 +6,7 @@
 /*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 10:44:58 by jfabi             #+#    #+#             */
-/*   Updated: 2021/11/30 10:45:00 by jfabi            ###   ########.fr       */
+/*   Updated: 2021/11/30 14:32:36 by jfabi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void    Convert::setDouble(const char* strToConvert)
 {
     if (strToConvert && strToConvert[0] && strToConvert[1] == 0)
     {
-        this->ret = static_cast<double>(strToConvert[0] - 48);
+        this->ret = static_cast<double>(strToConvert[0]);
         if (this->ret >= 0 && this->ret <= 9)
             flag = 0;
         else
