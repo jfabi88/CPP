@@ -15,8 +15,8 @@
 
 int main()
 {
-    int a = 5;
-    int b = 8;
+    int a = 2;
+    int b = 3;
     std::string str1 = "mucca";
     std::string str2 = "pollo";
     std::string strTmp;

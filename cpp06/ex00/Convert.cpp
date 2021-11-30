@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Convert.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jfabi <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/30 10:44:58 by jfabi             #+#    #+#             */
+/*   Updated: 2021/11/30 10:45:00 by jfabi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Convert.hpp"
 
 /**UTILS**/
@@ -56,7 +68,7 @@ void    Convert::setDouble(const char* strToConvert)
         this->ret = atof(strToConvert);
         if (!this->ret && !ftIsZero(strToConvert))
             flag = 1;
-        else if (std::isnan(this->ret) || std::isinf(this->ret))
+        else if (isnan(this->ret) || isinf(this->ret))
             flag = 3;
         else
             flag = 0;

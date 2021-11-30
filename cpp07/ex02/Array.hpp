@@ -32,11 +32,14 @@ class Array
 
         Array<T> &operator=(const Array<T> &copy)
         {
+            if (this == &copy)
+                return (*this);
+            delete [] content;
             content = new T[copy.size()];
             for (unsigned int i = 0; i < copy.size(); i++)
                 content[i] = copy[i];
             len = copy.size();
-            return (content);
+            return (*this);
         };
         T &operator[] (unsigned int indx) const
         {
