@@ -43,7 +43,7 @@ class Array
         };
         T &operator[] (unsigned int indx) const
         {
-            if (indx < 0 || indx >= len)
+            if (indx >= len)
                 throw OutOfIndexException();
             return (content[indx]);
         };

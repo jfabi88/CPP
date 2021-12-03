@@ -15,15 +15,15 @@
 
 #include "iostream"
 
-template <class T, class M>
-void    iter (T array[], int n, M (*f)(T))
+template <class T>
+void    iter (T array[], int n, void (*f)(T &))
 {
     for (int i = 0; i < n; i++)
         f(array[i]);
 }
 
 template <class T>
-void    firstFunction (T parameter)
+void    firstFunction (T & parameter)
 {
     std::cout << parameter << std::endl;
 }

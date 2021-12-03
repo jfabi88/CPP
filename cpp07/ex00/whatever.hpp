@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef WHATEVER_HPP
+#define WHATEVER_HPP
+
 template <class T>
 void swap  (T &first, T &second)
 {
@@ -31,3 +34,5 @@ T max (T first, T second)
 {
     return (first > second) ? first : second;
 }
+
+#endif
