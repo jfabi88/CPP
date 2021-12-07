@@ -14,9 +14,18 @@
 
 /**PUBLIC**/
 
+Span::Span()
+{
+}
+
 Span::Span(unsigned int N)
 {
     this->vect.reserve(N);
+}
+
+Span::Span(Span const &copy)
+{
+	this->vect = copy.vect;
 }
 
 void Span::addNumber(int num)
@@ -25,6 +34,20 @@ void Span::addNumber(int num)
         this->vect.push_back(num);
     else
         throw FullStorageException();
+}
+
+Span& Span::operator=(Span const &copy)
+{
+    if (this == &copy)
+        return (*this);
+    this->vect.clear();
+	this->vect = copy.vect;
+    return(*this);
+}
+
+std::vector<int> Span::getVect() const
+{
+    return (this->vect);
 }
 
 unsigned int Span::shortestSpan()
@@ -69,6 +92,13 @@ unsigned int Span::longestSpan()
     return (max - min);
 }
 
+std::ostream&    operator<<(std::ostream& os, const Span& cp)
+{
+    const std::vector<int> sp = cp.getVect();
+    for (int i = 0; (begin(sp) + i) != sp.end(); i++)
+        os << sp[i] << "\n";
+    return os;
+}
 
 /**PRIVATE**/
 

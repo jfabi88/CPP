@@ -17,7 +17,7 @@
 int main()
 {
     std::list<int>::iterator tmp;
-    std::list<int> my_list = { 5, 16, 9, 0};
+    std::list<int> my_list = { 7, 5, 16, 9, 0};
     try
     {
         tmp = easyfind(my_list, 2);
@@ -29,7 +29,7 @@ int main()
     }
     try
     {
-        tmp = easyfind(my_list, 9);
+        tmp = easyfind(my_list, 7);
         std::cout << *tmp << std::endl; 
     }
     catch(const std::exception& e)
